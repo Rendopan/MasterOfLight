@@ -13,25 +13,26 @@ public class AndreaController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0))
         {
             Ray ray = cam.ScreenPointToRay(Input.mousePosition);
             RaycastHit hitPoint;
 
-            if(Physics.Raycast(ray, out hitPoint)) 
+            if (Physics.Raycast(ray, out hitPoint))
             {
                 targetDest.transform.position = hitPoint.point;
                 character.SetDestination(hitPoint.point);
             }
         }
 
-        if(character.velocity != Vector3.zero)
+        if (character.velocity != Vector3.zero)
         {
             characterAnimator.SetBool("isWalking", true);
         }
-        else if (character.velocity == Vector3.zero) 
+        else if (character.velocity == Vector3.zero)
         {
             characterAnimator.SetBool("isWalking", false);
         }
     }
+
 }

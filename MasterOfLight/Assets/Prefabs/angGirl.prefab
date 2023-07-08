@@ -1571,6 +1571,7 @@ GameObject:
   - component: {fileID: 7775826553308294032}
   - component: {fileID: 7294378443604964335}
   - component: {fileID: 7873031135324114759}
+  - component: {fileID: 1794758999}
   m_Layer: 0
   m_Name: angGirl
   m_TagString: Untagged
@@ -1605,7 +1606,7 @@ Animator:
   m_GameObject: {fileID: 3909886941821152080}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 1679e2eb6e9a6344c994a61f31e35389, type: 3}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: dce09197b3b63454988ef375bd5a7aab, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 1
@@ -1639,12 +1640,12 @@ NavMeshAgent:
   m_GameObject: {fileID: 3909886941821152080}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.5
-  m_Speed: 1.25
+  m_Radius: 0.2
+  m_Speed: 1.75
   m_Acceleration: 8
   avoidancePriority: 50
-  m_AngularSpeed: 120
-  m_StoppingDistance: 0
+  m_AngularSpeed: 600
+  m_StoppingDistance: 0.5
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
@@ -1652,6 +1653,22 @@ NavMeshAgent:
   m_BaseOffset: -0.1
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &1794758999
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3909886941821152080}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8df127018511c14092d1cdd7dca470b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cam: {fileID: 0}
+  character: {fileID: 7873031135324114759}
+  characterAnimator: {fileID: 7775826553308294032}
+  targetDest: {fileID: 0}
 --- !u!1 &3959893722561898387
 GameObject:
   m_ObjectHideFlags: 0
