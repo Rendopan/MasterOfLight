@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3675376773788336883}
   - component: {fileID: 3675376773788336881}
   - component: {fileID: 3675376773788336880}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Point Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -44,14 +44,14 @@ Light:
   serializedVersion: 10
   m_Type: 2
   m_Shape: 0
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 1
-  m_Range: 10
+  m_Color: {r: 1, g: 1, b: 0.89411765, a: 1}
+  m_Intensity: 2
+  m_Range: 5
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 0
+    m_Type: 2
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -127,7 +127,7 @@ GameObject:
   - component: {fileID: 3598574179328205134}
   - component: {fileID: 3626445043864417978}
   - component: {fileID: 3644650115952531546}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: red_flame_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -247,7 +247,7 @@ GameObject:
   - component: {fileID: 3679466773454941240}
   - component: {fileID: 3709268191217372052}
   - component: {fileID: 3698153461332479848}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Glass1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -330,7 +330,7 @@ GameObject:
   - component: {fileID: 3679206777259954982}
   - component: {fileID: 3708248673445549180}
   - component: {fileID: 3698124177844270950}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Hook
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -413,7 +413,7 @@ GameObject:
   - component: {fileID: 3678978706526226500}
   - component: {fileID: 3708681645267681934}
   - component: {fileID: 3698922157040349890}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cylinder.000
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -496,7 +496,9 @@ GameObject:
   - component: {fileID: 3678974048276832962}
   - component: {fileID: 3708572481292367150}
   - component: {fileID: 3698350046369958164}
-  m_Layer: 0
+  - component: {fileID: 936737482}
+  - component: {fileID: 1914382122}
+  m_Layer: 6
   m_Name: Latern
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -510,9 +512,9 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3676977460966362168}
-  m_LocalRotation: {x: -0.000000081460335, y: 0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.07, y: 0.65, z: 0.439}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3678978706526226500}
@@ -572,3 +574,31 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &936737482
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3676977460966362168}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d2a5cb788babbd4793c6d0349255b4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lanternUI: {fileID: 0}
+  lightObj: {fileID: 3675376773788336882}
+  lightScoreTxt: {fileID: 0}
+--- !u!65 &1914382122
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3676977460966362168}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.3265387, y: 0.45387873, z: 0.32653874}
+  m_Center: {x: -0.000000014901161, y: 0.16205974, z: 0}
