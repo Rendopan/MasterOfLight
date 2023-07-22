@@ -21,9 +21,11 @@ public class AndreaController : MonoBehaviour
 
 
     private bool inDragging = false;
-    private bool inPlacement = false;
+    //private bool inPlacement = false;
 
     public bool HasLantern { get; internal set; }
+
+    public bool IsPlacing {  get; set; }
 
     public void Start()
     {
@@ -33,38 +35,40 @@ public class AndreaController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (inDragging)
-        {
-            streetLampToPlace.transform.position = Input.mousePosition;
-            
-            if (lantern.LightScore <= streetLamp.LightCost)
-                CancelLampPlacement();
-        }
-        else if(inPlacement) 
-        {
-            if (lantern.LightScore <= streetLamp.LightCost)
-                CancelLampPlacement();
-        }
-        if (Input.GetMouseButtonDown(0))
-        {
-            Ray ray = cam.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hitPoint;
+        Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hitPoint;
+        bool isOverUI = UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject();
 
-            if (Physics.Raycast(ray, out hitPoint, 1000f, layerGround))
+        if (Physics.Raycast(ray, out hitPoint, 1000f, layerGround) && !isOverUI)
+        {
+            targetDest.transform.position = hitPoint.point;
+            if(Input.GetMouseButtonDown(0) && !inDragging)
             {
-                targetDest.transform.position = hitPoint.point;
-                if(inDragging) 
-                {
-                    inDragging = false;
-                    inPlacement = true;
-                    streetLampToPlace.transform.position = hitPoint.point;
-                    canvasPlacement.transform.position = new Vector3(streetLampToPlace.transform.position.x, 3.0f, streetLampToPlace.transform.position.z);
-                    canvasPlacement.SetActive(true);
-                }
-                else
-                    character.SetDestination(hitPoint.point);
+                character.SetDestination(hitPoint.point);
             }
+            if(Input.GetMouseButtonDown(0) && inDragging) 
+            {
+                inDragging = false;
+                IsPlacing = true;
+                streetLampToPlace.transform.position = hitPoint.point;
+                character.SetDestination(hitPoint.point);
+                canvasPlacement.transform.position = new Vector3(streetLampToPlace.transform.position.x, 3.0f, streetLampToPlace.transform.position.z);
+                //canvasPlacement.SetActive(true);
+            }
+            else if(inDragging)
+            {
+                streetLampToPlace.transform.position = hitPoint.point;
+                if (lantern.LightScore <= streetLamp.LightCost)
+                   CancelLampPlacement();
+            }
+            else if (IsPlacing)
+            {
+                if (lantern.LightScore <= streetLamp.LightCost)
+                    CancelLampPlacement();
+            }
+
         }
+        
 
         if (character.velocity != Vector3.zero)
         {
@@ -110,6 +114,7 @@ public class AndreaController : MonoBehaviour
                 streetLampToPlace = Instantiate(streetLampPrefabs[idLamp], Input.mousePosition, streetLampPrefabs[idLamp].transform.rotation);
                 streetLamp = streetLampToPlace.GetComponent<StreetLamp>();
                 streetLamp.LightCost = 80;
+                Camera.main.orthographicSize = 10;
                 break;
             default:
                 break;
@@ -118,16 +123,33 @@ public class AndreaController : MonoBehaviour
 
     public void ConfirmPlacement()
     {
-        inPlacement = false;
+        IsPlacing = false;
+        inDragging = false;
+        lantern.AddLightScore(-streetLamp.LightCost);
         canvasPlacement.SetActive(false);
+        Camera.main.orthographicSize = 5;
+    }
+
+    public void RotateLamp()
+    {
+        streetLamp.RotateLamp();
     }
 
     public void CancelLampPlacement()
     {
-        inPlacement = false;
+        IsPlacing = false;
         inDragging = false;
         canvasPlacement.SetActive(false);
         Destroy(streetLampToPlace);
+        Camera.main.orthographicSize = 5;
+    }
+
+    public void InPlacement(bool isPlacing)
+    {
+        if(IsPlacing)
+        {
+            canvasPlacement.SetActive(isPlacing);
+        }
     }
 
     //private void OnTriggerEnter(Collider other)

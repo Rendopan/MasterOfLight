@@ -587,8 +587,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lanternUI: {fileID: 0}
+  streetLampUI: {fileID: 0}
   lightObj: {fileID: 3675376773788336882}
   lightScoreTxt: {fileID: 0}
+  lanternParentTransform: {fileID: 0}
 --- !u!65 &1914382122
 BoxCollider:
   m_ObjectHideFlags: 0

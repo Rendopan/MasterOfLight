@@ -48,11 +48,20 @@ public class Lantern : MonoBehaviour
                     currentLightScore--;
                     lanternLight.intensity = currentLightScore / 100f;
                     lightScoreTxt.text = currentLightScore.ToString();
-                    if (currentLightScore < 80)
-                    {
-                        streetLampUI.SetActive(false);
-                    }
+                    
                 }
+            }
+            if(AndreaController.Andrea.IsPlacing)
+            {
+                streetLampUI.SetActive(false);
+            }
+            else if (currentLightScore > 80)
+            {
+                streetLampUI.SetActive(true);
+            }
+            else 
+            {
+                streetLampUI.SetActive(false);
             }
         }
         else

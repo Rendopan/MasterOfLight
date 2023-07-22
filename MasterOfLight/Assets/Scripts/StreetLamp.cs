@@ -29,4 +29,22 @@ public class StreetLamp : MonoBehaviour
         set {  lightCost = value; } 
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "Andrea")
+        {
+            AndreaController.Andrea.InPlacement(true);
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+
+        if (other.gameObject.tag == "Andrea")
+        {
+            AndreaController.Andrea.InPlacement(false);
+        }
+    }
+
+
 }

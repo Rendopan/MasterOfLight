@@ -8,7 +8,7 @@ public class Flame : MonoBehaviour
 
     private Camera cameraToLookAt;
 
-    private float offTime = 25.0f;
+    private float offTime = 3.0f;
     public float timePassed = 0;
 
     void Awake()
