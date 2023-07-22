@@ -9,10 +9,19 @@ public class AndreaController : MonoBehaviour
     public Animator characterAnimator;
     public GameObject targetDest;
 
+    public GameObject[] streetLampPrefabs;
+    private GameObject streetLampToPlace;
+    private StreetLamp streetLamp;
+
+    public GameObject canvasPlacement;
     private int layerGround = 1 << 7;
 
     public static AndreaController Andrea;
     private Lantern lantern;
+
+
+    private bool inDragging = false;
+    private bool inPlacement = false;
 
     public bool HasLantern { get; internal set; }
 
@@ -24,6 +33,18 @@ public class AndreaController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (inDragging)
+        {
+            streetLampToPlace.transform.position = Input.mousePosition;
+            
+            if (lantern.LightScore <= streetLamp.LightCost)
+                CancelLampPlacement();
+        }
+        else if(inPlacement) 
+        {
+            if (lantern.LightScore <= streetLamp.LightCost)
+                CancelLampPlacement();
+        }
         if (Input.GetMouseButtonDown(0))
         {
             Ray ray = cam.ScreenPointToRay(Input.mousePosition);
@@ -32,7 +53,16 @@ public class AndreaController : MonoBehaviour
             if (Physics.Raycast(ray, out hitPoint, 1000f, layerGround))
             {
                 targetDest.transform.position = hitPoint.point;
-                character.SetDestination(hitPoint.point);
+                if(inDragging) 
+                {
+                    inDragging = false;
+                    inPlacement = true;
+                    streetLampToPlace.transform.position = hitPoint.point;
+                    canvasPlacement.transform.position = new Vector3(streetLampToPlace.transform.position.x, 3.0f, streetLampToPlace.transform.position.z);
+                    canvasPlacement.SetActive(true);
+                }
+                else
+                    character.SetDestination(hitPoint.point);
             }
         }
 
@@ -45,6 +75,8 @@ public class AndreaController : MonoBehaviour
             characterAnimator.SetBool("isWalking", false);
         }
     }
+
+    
 
     //private void OnTriggerEnter(Collider other)
     //{
@@ -67,6 +99,35 @@ public class AndreaController : MonoBehaviour
         //lanternObj.gameObject.SetActive(false);
         lantern = lanternObj;
         HasLantern = true;
+    }
+
+    public void Generate_StreetLamp(int idLamp)
+    {
+        inDragging = true;
+        switch (idLamp)
+        {
+            case 0:
+                streetLampToPlace = Instantiate(streetLampPrefabs[idLamp], Input.mousePosition, streetLampPrefabs[idLamp].transform.rotation);
+                streetLamp = streetLampToPlace.GetComponent<StreetLamp>();
+                streetLamp.LightCost = 80;
+                break;
+            default:
+                break;
+        }
+    }
+
+    public void ConfirmPlacement()
+    {
+        inPlacement = false;
+        canvasPlacement.SetActive(false);
+    }
+
+    public void CancelLampPlacement()
+    {
+        inPlacement = false;
+        inDragging = false;
+        canvasPlacement.SetActive(false);
+        Destroy(streetLampToPlace);
     }
 
     //private void OnTriggerEnter(Collider other)

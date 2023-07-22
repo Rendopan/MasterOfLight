@@ -8,6 +8,8 @@ using UnityEngine.SocialPlatforms.Impl;
 public class Lantern : MonoBehaviour
 {
     public GameObject lanternUI;
+    public GameObject streetLampUI;
+
     public GameObject lightObj;
     public TextMeshProUGUI lightScoreTxt;
     public Transform lanternParentTransform;
@@ -19,7 +21,7 @@ public class Lantern : MonoBehaviour
     //private int maxLight;
 
     private float flashTime = 3.0f;
-    private float decreaseTime = 5.0f;
+    private float decreaseTime = 3.0f;
     private float currentTime = 0.0f;
 
     private bool inOn = false;
@@ -46,6 +48,10 @@ public class Lantern : MonoBehaviour
                     currentLightScore--;
                     lanternLight.intensity = currentLightScore / 100f;
                     lightScoreTxt.text = currentLightScore.ToString();
+                    if (currentLightScore < 80)
+                    {
+                        streetLampUI.SetActive(false);
+                    }
                 }
             }
         }
@@ -95,6 +101,14 @@ public class Lantern : MonoBehaviour
         currentLightScore += s;
         lanternLight.intensity = currentLightScore / 100f;
         lightScoreTxt.text = currentLightScore.ToString();
+
+        if(currentLightScore > 80)
+        {
+            streetLampUI.SetActive(true);
+        }
     }
+
+    public int LightScore
+    { get { return currentLightScore; } }
 
 }
