@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SocialPlatforms.Impl;
 
 public class Lantern : MonoBehaviour
 {
     public GameObject lanternUI;
+    private Image filledLevel;
+    public GameObject usableLantern; 
     public GameObject streetLampUI;
 
     public GameObject lightObj;
@@ -18,7 +21,7 @@ public class Lantern : MonoBehaviour
     private Light lanternLight;
     private int layerLantern = 1 << 6;
     //private int currentLight;
-    //private int maxLight;
+    private int maxLight = 100;
 
     private float flashTime = 3.0f;
     private float decreaseTime = 3.0f;
@@ -30,6 +33,7 @@ public class Lantern : MonoBehaviour
     void Start()
     {
         lanternLight = lightObj.GetComponent<Light>();
+        filledLevel = lanternUI.GetComponent<Image>();
         lanternLight.intensity = 0.0f;
         inOn = true;
     }
@@ -48,7 +52,7 @@ public class Lantern : MonoBehaviour
                     currentLightScore--;
                     lanternLight.intensity = currentLightScore / 100f;
                     lightScoreTxt.text = currentLightScore.ToString();
-                    
+                    filledLevel.fillAmount = (float)currentLightScore / maxLight;
                 }
             }
             if(AndreaController.Andrea.IsPlacing)
@@ -58,10 +62,12 @@ public class Lantern : MonoBehaviour
             else if (currentLightScore > 80)
             {
                 streetLampUI.SetActive(true);
+                usableLantern.SetActive(true);
             }
             else 
             {
                 streetLampUI.SetActive(false);
+                usableLantern.SetActive(false);
             }
         }
         else
@@ -108,13 +114,20 @@ public class Lantern : MonoBehaviour
     public void AddLightScore(int s)
     {
         currentLightScore += s;
+
+        if(currentLightScore > maxLight)
+            currentLightScore = maxLight;
+
         lanternLight.intensity = currentLightScore / 100f;
         lightScoreTxt.text = currentLightScore.ToString();
+        filledLevel.fillAmount = (float)currentLightScore / maxLight;
 
-        if(currentLightScore > 80)
+        if (currentLightScore > 80)
         {
+            usableLantern.SetActive(true);
             streetLampUI.SetActive(true);
         }
+        
     }
 
     public int LightScore

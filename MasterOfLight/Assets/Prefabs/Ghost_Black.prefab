@@ -320,6 +320,7 @@ GameObject:
   - component: {fileID: 3746135306597822134}
   - component: {fileID: 3746135306597822135}
   - component: {fileID: 3076501306138099162}
+  - component: {fileID: 4581718616445937488}
   m_Layer: 0
   m_Name: Ghost_Black
   m_TagString: Untagged
@@ -335,7 +336,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3746135306597822132}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.159, y: 0, z: 0.465}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -385,6 +386,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2cf1946943988634c890c9ba3dd52f39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  character: {fileID: 4581718616445937488}
+--- !u!195 &4581718616445937488
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3746135306597822132}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 0.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: -0.1
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!1 &4232511180684224992
 GameObject:
   m_ObjectHideFlags: 0

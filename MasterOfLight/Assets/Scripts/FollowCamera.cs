@@ -10,7 +10,7 @@ public class FollowCamera : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        offset = new Vector3(-4.5f, 6f, 4.5f);
+        offset = new Vector3(-6.5f, 12f, 4f);
     }
 
     // Update is called once per frame

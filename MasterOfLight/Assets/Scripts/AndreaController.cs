@@ -41,32 +41,34 @@ public class AndreaController : MonoBehaviour
 
         if (Physics.Raycast(ray, out hitPoint, 1000f, layerGround) && !isOverUI)
         {
-            targetDest.transform.position = hitPoint.point;
-            if(Input.GetMouseButtonDown(0) && !inDragging)
+            if (hitPoint.collider.gameObject.tag == "Ground")
             {
-                character.SetDestination(hitPoint.point);
+                targetDest.transform.position = hitPoint.point;
+                if (Input.GetMouseButtonDown(0) && !inDragging)
+                {
+                    character.SetDestination(hitPoint.point);
+                }
+                if (Input.GetMouseButtonDown(0) && inDragging)
+                {
+                    inDragging = false;
+                    IsPlacing = true;
+                    streetLampToPlace.transform.position = hitPoint.point;
+                    character.SetDestination(hitPoint.point);
+                    //canvasPlacement.transform.position = new Vector3(streetLampToPlace.transform.position.x, 3.0f, streetLampToPlace.transform.position.z);
+                    //canvasPlacement.SetActive(true);
+                }
+                else if (inDragging)
+                {
+                    streetLampToPlace.transform.position = hitPoint.point;
+                    if (lantern.LightScore <= streetLamp.LightCost)
+                        CancelLampPlacement();
+                }
+                else if (IsPlacing)
+                {
+                    if (lantern.LightScore <= streetLamp.LightCost)
+                        CancelLampPlacement();
+                }
             }
-            if(Input.GetMouseButtonDown(0) && inDragging) 
-            {
-                inDragging = false;
-                IsPlacing = true;
-                streetLampToPlace.transform.position = hitPoint.point;
-                character.SetDestination(hitPoint.point);
-                canvasPlacement.transform.position = new Vector3(streetLampToPlace.transform.position.x, 3.0f, streetLampToPlace.transform.position.z);
-                //canvasPlacement.SetActive(true);
-            }
-            else if(inDragging)
-            {
-                streetLampToPlace.transform.position = hitPoint.point;
-                if (lantern.LightScore <= streetLamp.LightCost)
-                   CancelLampPlacement();
-            }
-            else if (IsPlacing)
-            {
-                if (lantern.LightScore <= streetLamp.LightCost)
-                    CancelLampPlacement();
-            }
-
         }
         
 
@@ -125,8 +127,21 @@ public class AndreaController : MonoBehaviour
     {
         IsPlacing = false;
         inDragging = false;
+
+        // Subtract light from lantern.
         lantern.AddLightScore(-streetLamp.LightCost);
+
+        // Start first enemy wave when first streetLamp is placed.
+        if (EnemiesWavesManager.enemiesWave.CurrentWave == 0)
+            EnemiesWavesManager.enemiesWave.StartWave(1);
+
+        // Start first enemy wave when first streetLamp is placed.
+        EnemiesWavesManager.enemiesWave.AddTargetPoint(streetLampToPlace.transform);
+
+        // Hide UI to edit lantern.
         canvasPlacement.SetActive(false);
+
+        // Zoom out camera.
         Camera.main.orthographicSize = 5;
     }
 
