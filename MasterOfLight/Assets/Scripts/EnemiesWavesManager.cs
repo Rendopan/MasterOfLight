@@ -14,7 +14,7 @@ public class EnemiesWavesManager : MonoBehaviour
 
     private List<EnemyController> enemiesInWave;
     private float waveTimer = 0f;
-    private float waveSpawnTime = 5f;
+    private float waveSpawnTime = 20f;
     private int enemiesInWaveNumber;
     private int currentWaveEnemies = 0;
 

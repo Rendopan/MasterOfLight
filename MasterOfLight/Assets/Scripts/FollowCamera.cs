@@ -5,12 +5,14 @@ using UnityEngine;
 public class FollowCamera : MonoBehaviour
 {
     public GameObject player;
-    private Vector3 offset;
+    private Vector3 offset, zoomInOffset, zoomOutOffset;
 
     // Start is called before the first frame update
     void Start()
     {
-        offset = new Vector3(-6.5f, 12f, 4f);
+        offset = new Vector3(-6f, 8f, -2f);
+        zoomInOffset = offset;
+        zoomOutOffset = new Vector3(-12f, 12f, 4f);
     }
 
     // Update is called once per frame
