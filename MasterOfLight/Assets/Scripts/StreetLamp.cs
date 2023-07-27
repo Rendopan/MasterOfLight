@@ -57,7 +57,11 @@ public class StreetLamp : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.tag == "Enemy")
+        if (other.gameObject.tag == "Andrea")
+        {
+            AndreaController.Andrea.InPlacement(true);
+        }
+        else if (other.gameObject.tag == "Enemy")
         {
             if (currentTarget == null)
             {
