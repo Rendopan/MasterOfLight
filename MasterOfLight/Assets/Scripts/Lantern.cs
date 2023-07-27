@@ -23,7 +23,7 @@ public class Lantern : MonoBehaviour
     //private int currentLight;
     private int maxLight = 100;
 
-    private float flashTime = 3.0f;
+    private float flashTime = 5.0f;
     private float decreaseTime = 3.0f;
     private float currentTime = 0.0f;
 
@@ -53,6 +53,10 @@ public class Lantern : MonoBehaviour
                     lanternLight.intensity = currentLightScore / 100f;
                     lightScoreTxt.text = currentLightScore.ToString();
                     filledLevel.fillAmount = (float)currentLightScore / maxLight;
+                    if (currentLightScore == 0)
+                    {
+                        TaleManager.Tale.SetStroke("I need more light.");
+                    }
                 }
             }
             if(AndreaController.Andrea.IsPlacing)
@@ -82,7 +86,14 @@ public class Lantern : MonoBehaviour
             {
                 lanternLight.intensity -= Time.deltaTime;
                 if (lanternLight.intensity <= 0.0f)
+                {
+                    if (TaleManager.Tale.CurrentStroke == 1)
+                    {
+                        TaleManager.Tale.SetStroke("Is there a lantern over that well?");
+                        TaleManager.Tale.CurrentStroke++;
+                    }
                     inOn = true;
+                }
             }
         }
 
@@ -101,6 +112,11 @@ public class Lantern : MonoBehaviour
                     AndreaController.Andrea.GetLantern(this);
                     this.gameObject.transform.parent = lanternParentTransform;
                     this.gameObject.transform.localPosition = Vector3.zero;
+                    if (TaleManager.Tale.CurrentStroke == 2)
+                    {
+                        TaleManager.Tale.SetStroke("So cute.");
+                        TaleManager.Tale.CurrentStroke++;
+                    }
                     //Object.Destroy(this.gameObject);
                 }
             }
@@ -127,7 +143,17 @@ public class Lantern : MonoBehaviour
             usableLantern.SetActive(true);
             streetLampUI.SetActive(true);
         }
-        
+
+        if (currentLightScore == 100)
+        {
+            TaleManager.Tale.SetStroke("It's full.");
+        }
+
+        if (TaleManager.Tale.CurrentStroke == 3)
+        {
+            TaleManager.Tale.SetStroke("Is the lantern filling up?");
+            TaleManager.Tale.CurrentStroke++;
+        }
     }
 
     public int LightScore

@@ -45,6 +45,7 @@ public class Flame : MonoBehaviour
             if (IsVisible)
             {
                 AndreaController.Andrea.GetLight(this);
+                
             }
         }
     }

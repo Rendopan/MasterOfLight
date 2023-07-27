@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -8,6 +9,9 @@ public class AndreaController : MonoBehaviour
     public NavMeshAgent character;
     public Animator characterAnimator;
     public GameObject targetDest;
+
+    //public GameObject storyPanel;
+    //public GameObject faceCameraObj;
 
     public GameObject[] streetLampPrefabs;
     private GameObject streetLampToPlace;
@@ -83,7 +87,19 @@ public class AndreaController : MonoBehaviour
     }
 
     
+    //public void StartTalk()
+    //{
+    //    StartCoroutine(TimedMessage());
+    //}
 
+    //private IEnumerator TimedMessage() 
+    //{
+    //    storyPanel.SetActive(true);
+    //    faceCameraObj.SetActive(true);
+    //    yield return new WaitForSeconds(5);
+    //    storyPanel.SetActive(false);
+    //    faceCameraObj.SetActive(false);
+    //}
     //private void OnTriggerEnter(Collider other)
     //{
     //    if (other.gameObject.CompareTag("")
@@ -130,6 +146,9 @@ public class AndreaController : MonoBehaviour
 
         // Subtract light from lantern.
         lantern.AddLightScore(-streetLamp.LightCost);
+
+        // Andrea tought
+        TaleManager.Tale.SetStroke("Oh well, I remeber this was there…");
 
         // Start first enemy wave when first streetLamp is placed.
         if (EnemiesWavesManager.enemiesWave.CurrentWave == 0)

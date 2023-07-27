@@ -47,6 +47,11 @@ public class StreetLamp : MonoBehaviour
         {
             if (currentTarget == null)
             {
+                if (TaleManager.Tale.CurrentStroke == 4)
+                {
+                    TaleManager.Tale.SetStroke("And who are you now?");
+                    TaleManager.Tale.CurrentStroke++;
+                }
                 currentTarget = other.gameObject;
                 InvokeRepeating("ShotLightSphere", 0.0f, 2f);
             }
