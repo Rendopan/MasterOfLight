@@ -531,7 +531,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2570775432897959478}
   - component: {fileID: 1287488114}
-  - component: {fileID: 2990495508989830469}
+  - component: {fileID: 4632693658295962759}
   m_Layer: 0
   m_Name: StreetLampOne
   m_TagString: Untagged
@@ -572,8 +572,8 @@ MonoBehaviour:
   LightSphere: {fileID: 8752135924233050000, guid: 345745ae423aa3441bfd55d64711129b,
     type: 3}
   startShootObject: {fileID: 2568594895267644416}
---- !u!65 &2990495508989830469
-BoxCollider:
+--- !u!135 &4632693658295962759
+SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -583,8 +583,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2, y: 3, z: 2}
-  m_Center: {x: 0.5, y: 1.5, z: 0}
+  m_Radius: 2.8097486
+  m_Center: {x: 0.6470945, y: 0, z: 2.09034e-15}
 --- !u!1 &2569107013268223752
 GameObject:
   m_ObjectHideFlags: 0

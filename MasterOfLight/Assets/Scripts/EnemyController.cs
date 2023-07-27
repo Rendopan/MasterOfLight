@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,6 +7,9 @@ using UnityEngine.AI;
 public class EnemyController : MonoBehaviour
 {
     public NavMeshAgent character;
+    private int damage;
+    private int hitPoints;
+
     //public Animator characterAnimator;
     //public List<Transform> targetDest;
 
@@ -14,6 +18,7 @@ public class EnemyController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        hitPoints = 10;
         //currentTarget = this.transform;
         //character.SetDestination(targetDest.transform.position);
     }
@@ -46,5 +51,14 @@ public class EnemyController : MonoBehaviour
         }
 
         character.SetDestination(currentTarget.position);
+    }
+
+    public void LoseHitPoints(int damage)
+    {
+        this.hitPoints -= damage;
+        if(hitPoints <= 0) 
+        { 
+            Destroy(gameObject);
+        }
     }
 }
