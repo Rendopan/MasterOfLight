@@ -1,32 +1,44 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class StreetLamp : MonoBehaviour
 {
     private int lightCost;
     private int damage;
-    private int hitPoints;
     private float shotFrequency = 3.0f;
     private float rechargeTime = 0.0f;
 
-    public GameObject LightSphere;
-    public GameObject startShootObject;
+    public GameObject lightSphere;
+    public GameObject startSpawnShot;
+
+    public GameObject hitPointsBar;
+    private int hitPoints;
+    private int startHitPoints;
+    private Image hitPointsImg;
 
     private Vector3 startShootPosition;
     private GameObject currentTarget;
+
+    private Camera cameraToLookAt;
 
 
     // Start is called before the first frame update
     void Start()
     {
+        startHitPoints = hitPoints = 100;
         damage = 1;
+        cameraToLookAt = Camera.main;
+        hitPointsImg = hitPointsBar.GetComponent<Image>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        Vector3 v = cameraToLookAt.transform.position - hitPointsBar.transform.position;
+        v.x = v.z = 0.0f;
+        hitPointsBar.transform.LookAt(cameraToLookAt.transform.position - v);
     }
 
     public void RotateLamp() 
@@ -40,6 +52,15 @@ public class StreetLamp : MonoBehaviour
         set {  lightCost = value; } 
     }
 
+    public void LoseHitPoints(int damage)
+    {
+        this.hitPoints -= damage;
+        hitPointsImg.fillAmount = (float)hitPoints / startHitPoints;
+        if (hitPoints <= 0)
+        {
+            Destroy(gameObject);
+        }
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -61,7 +82,7 @@ public class StreetLamp : MonoBehaviour
         {
             AndreaController.Andrea.InPlacement(true);
         }
-        else if (other.gameObject.tag == "Enemy")
+        else if (other.gameObject.tag == "Enemy" && other is CapsuleCollider)
         {
             if (currentTarget == null)
             {
@@ -96,7 +117,7 @@ public class StreetLamp : MonoBehaviour
 
     private void ShotLightSphere()
     {
-        GameObject shotObj = Instantiate(LightSphere, startShootObject.transform, false );
+        GameObject shotObj = Instantiate(lightSphere, startSpawnShot.transform, false);
 
         LightShot lightShot = shotObj.GetComponent<LightShot>();
         Vector3 shootDir = (currentTarget.transform.position - shotObj.transform.position).normalized;

@@ -8,6 +8,7 @@ TagManager:
   - Flame
   - Ground
   - Enemy
+  - Light
   layers:
   - Default
   - TransparentFX

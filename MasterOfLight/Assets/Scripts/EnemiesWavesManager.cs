@@ -13,7 +13,7 @@ public class EnemiesWavesManager : MonoBehaviour
 
 
     private List<EnemyController> enemiesInWave;
-    private float waveTimer = 0f;
+    private float waveTimer = 20f;
     private float waveSpawnTime = 20f;
     private int enemiesInWaveNumber;
     private int currentWaveEnemies = 0;
@@ -62,7 +62,7 @@ public class EnemiesWavesManager : MonoBehaviour
         {
             GameObject enemyObj = Instantiate(enemiesType[0], this.transform);
             enemyController = enemyObj.GetComponent<EnemyController>();
-            enemyController.StartTarget(targetDestPoints[0].transform);
+            enemyController.StartTarget(targetDestPoints[0].gameObject);
 
             enemiesInWave.Add(enemyController);
 

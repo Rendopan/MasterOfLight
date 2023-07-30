@@ -13,17 +13,20 @@ public class Lantern : MonoBehaviour
     public GameObject usableLantern; 
     public GameObject streetLampUI;
 
-    public GameObject lightObj;
+
+    public GameObject pointLightObj;
+    public GameObject spontLightObj;
     public TextMeshProUGUI lightScoreTxt;
     public Transform lanternParentTransform;
 
     private int currentLightScore;
-    private Light lanternLight;
+    private Light pointLight;
+    private Light spotLight;
     private int layerLantern = 1 << 6;
     //private int currentLight;
     private int maxLight = 100;
 
-    private float flashTime = 5.0f;
+    private float flashTime = 7.0f;
     private float decreaseTime = 3.0f;
     private float currentTime = 0.0f;
 
@@ -32,9 +35,11 @@ public class Lantern : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        lanternLight = lightObj.GetComponent<Light>();
+        pointLight = pointLightObj.GetComponent<Light>();
+        spotLight = spontLightObj.GetComponent<Light>();
         filledLevel = lanternUI.GetComponent<Image>();
-        lanternLight.intensity = 0.0f;
+        pointLight.intensity = 0.0f;
+        spotLight.intensity = 0.0f;
         inOn = true;
     }
 
@@ -50,11 +55,12 @@ public class Lantern : MonoBehaviour
                 {
                     currentTime = 0f;
                     currentLightScore--;
-                    lanternLight.intensity = currentLightScore / 100f;
+                    pointLight.intensity = currentLightScore / 100f;
                     lightScoreTxt.text = currentLightScore.ToString();
                     filledLevel.fillAmount = (float)currentLightScore / maxLight;
                     if (currentLightScore == 0)
                     {
+                        spotLight.intensity = 0.0f;
                         TaleManager.Tale.SetStroke("I need more light.");
                     }
                 }
@@ -78,14 +84,14 @@ public class Lantern : MonoBehaviour
         {
             if (inOn)
             {
-                lanternLight.intensity += Time.deltaTime;
-                if (lanternLight.intensity > flashTime)
+                pointLight.intensity += Time.deltaTime;
+                if (pointLight.intensity > flashTime)
                     inOn = false;
             }
             else
             {
-                lanternLight.intensity -= Time.deltaTime;
-                if (lanternLight.intensity <= 0.0f)
+                pointLight.intensity -= Time.deltaTime;
+                if (pointLight.intensity <= 0.0f)
                 {
                     if (TaleManager.Tale.CurrentStroke == 1)
                     {
@@ -114,6 +120,7 @@ public class Lantern : MonoBehaviour
                     this.gameObject.transform.localPosition = Vector3.zero;
                     if (TaleManager.Tale.CurrentStroke == 2)
                     {
+                        spotLight.intensity = 2f;
                         TaleManager.Tale.SetStroke("So cute.");
                         TaleManager.Tale.CurrentStroke++;
                     }
@@ -134,7 +141,7 @@ public class Lantern : MonoBehaviour
         if(currentLightScore > maxLight)
             currentLightScore = maxLight;
 
-        lanternLight.intensity = currentLightScore / 100f;
+        pointLight.intensity = currentLightScore / 100f;
         lightScoreTxt.text = currentLightScore.ToString();
         filledLevel.fillAmount = (float)currentLightScore / maxLight;
 

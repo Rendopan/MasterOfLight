@@ -130,7 +130,7 @@ public class AndreaController : MonoBehaviour
         {
             case 0:
                 streetLampToPlace = Instantiate(streetLampPrefabs[idLamp], Input.mousePosition, streetLampPrefabs[idLamp].transform.rotation);
-                streetLamp = streetLampToPlace.GetComponent<StreetLamp>();
+                streetLamp = streetLampToPlace.GetComponentInChildren<StreetLamp>();
                 streetLamp.LightCost = 80;
                 Camera.main.orthographicSize = 10;
                 break;

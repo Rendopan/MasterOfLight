@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LightShot : MonoBehaviour
+public class DarkShot : MonoBehaviour
 {
     private Vector3 shootDir;
     private float speed = 2f;
@@ -17,19 +17,21 @@ public class LightShot : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Debug.Log("A Dark Sphere is destroyed.");
         transform.position += shootDir * speed * Time.deltaTime;
         if(transform.position.y < 0) 
-        { 
+        {
+            Debug.Log("A Dark Sphere is destroyed.");
             Destroy(gameObject);
         }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Enemy" && other is CapsuleCollider)
+        if (other.gameObject.tag == "Light" && other is SphereCollider)
         {
-            EnemyController enemy = other.gameObject.GetComponent<EnemyController>();
-            enemy.LoseHitPoints(damage);
+            StreetLamp streetLamp = other.gameObject.GetComponentInParent<StreetLamp>();
+            streetLamp.LoseHitPoints(damage);
             Destroy(this.gameObject);
         }
     }
