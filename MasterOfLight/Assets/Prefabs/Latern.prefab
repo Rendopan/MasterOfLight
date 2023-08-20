@@ -47,8 +47,8 @@ Light:
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 10
   m_Range: 10
-  m_SpotAngle: 140
-  m_InnerSpotAngle: 70
+  m_SpotAngle: 100
+  m_InnerSpotAngle: 100
   m_CookieSize: 10
   m_Shadows:
     m_Type: 0
@@ -160,7 +160,7 @@ Light:
   m_Type: 2
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 0.89411765, a: 1}
-  m_Intensity: 2
+  m_Intensity: 6
   m_Range: 5
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -705,7 +705,8 @@ MonoBehaviour:
   lanternUI: {fileID: 0}
   usableLantern: {fileID: 0}
   streetLampUI: {fileID: 0}
-  lightObj: {fileID: 3675376773788336882}
+  pointLightObj: {fileID: 3675376773788336882}
+  spontLightObj: {fileID: 459454864}
   lightScoreTxt: {fileID: 0}
   lanternParentTransform: {fileID: 0}
 --- !u!65 &1914382122

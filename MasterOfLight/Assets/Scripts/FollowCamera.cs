@@ -10,7 +10,7 @@ public class FollowCamera : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        offset = new Vector3(-6f, 8f, -2f);
+        offset = new Vector3(0f, 0f, 0f);
         zoomInOffset = offset;
         zoomOutOffset = new Vector3(-12f, 12f, 4f);
     }

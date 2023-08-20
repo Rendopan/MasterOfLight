@@ -1,8 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SocialPlatforms.Impl;
+using static UnityEngine.Rendering.VolumeComponent;
 
 public class EnemiesWavesManager : MonoBehaviour
 {
@@ -75,6 +77,18 @@ public class EnemiesWavesManager : MonoBehaviour
         }
     }
 
+    public void RemoveEnemyInWave(EnemyController enemy)
+    {
+        for (int idEnemy = 0; idEnemy < enemiesInWave.Count; idEnemy++)
+        {
+            if (enemiesInWave[idEnemy].Equals(enemy))
+            {
+                enemiesInWave.RemoveAt(idEnemy);
+                idEnemy = enemiesInWave.Count;
+            }
+        }
+    }
+
     public void AddTargetPoint(Transform targetObject)
     {
         targetDestPoints.Add(targetObject);
@@ -87,6 +101,31 @@ public class EnemiesWavesManager : MonoBehaviour
             }
         }
 
+    }
+
+    public void ChooseNewTarget()
+    {
+        for (int idEnemy = 0; idEnemy < enemiesInWave.Count; idEnemy++)
+        {
+            enemiesInWave[idEnemy].StartTarget(targetDestPoints[0].gameObject);
+            for (int idDest = 0; idDest < targetDestPoints.Count; idDest++)
+            {
+                enemiesInWave[idEnemy].ChooseNewTarget(targetDestPoints[idDest]);
+            }
+        }
+    }
+
+    public void RemoveEnemiesTarget(Transform targetToRemove)
+    {
+        for (int idDest = 0; idDest < targetDestPoints.Count; idDest++)
+        {
+            if (targetDestPoints[idDest].Equals(targetToRemove))
+            {
+                targetDestPoints.RemoveAt(idDest);
+                idDest = targetDestPoints.Count;
+            }
+        }
+        ChooseNewTarget();
     }
 
     public int CurrentWave

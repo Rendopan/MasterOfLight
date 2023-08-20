@@ -52,12 +52,20 @@ public class StreetLamp : MonoBehaviour
         set {  lightCost = value; } 
     }
 
+    /// <summary>
+    /// A street lamp lose its hit points.
+    /// When is destroyed its lantern disappear.
+    /// Remove it from enemy target and choose a new target for all enemies.
+    /// </summary>
+    /// <param name="damage"></param>
     public void LoseHitPoints(int damage)
     {
         this.hitPoints -= damage;
         hitPointsImg.fillAmount = (float)hitPoints / startHitPoints;
         if (hitPoints <= 0)
         {
+            GameObject targetSpotLight = this.GetComponentInChildren<BoxCollider>().gameObject;
+            EnemiesWavesManager.enemiesWave.RemoveEnemiesTarget(targetSpotLight.transform);
             Destroy(gameObject);
         }
     }

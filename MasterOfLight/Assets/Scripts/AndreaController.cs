@@ -27,7 +27,7 @@ public class AndreaController : MonoBehaviour
     private bool inDragging = false;
     //private bool inPlacement = false;
 
-    public bool HasLantern { get; internal set; }
+    public bool HasLantern { get; set; }
 
     public bool IsPlacing {  get; set; }
 
@@ -154,8 +154,10 @@ public class AndreaController : MonoBehaviour
         if (EnemiesWavesManager.enemiesWave.CurrentWave == 0)
             EnemiesWavesManager.enemiesWave.StartWave(1);
 
-        // Start first enemy wave when first streetLamp is placed.
-        EnemiesWavesManager.enemiesWave.AddTargetPoint(streetLampToPlace.transform);
+        // Start first enemy wave when first streetLamp is placed. 
+        // Add lantern spot light as new target.
+        GameObject targetSpotLight = streetLampToPlace.GetComponentInChildren<BoxCollider>().gameObject;
+        EnemiesWavesManager.enemiesWave.AddTargetPoint(targetSpotLight.transform);
 
         // Hide UI to edit lantern.
         canvasPlacement.SetActive(false);

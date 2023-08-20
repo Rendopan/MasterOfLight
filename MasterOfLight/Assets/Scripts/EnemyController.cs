@@ -17,7 +17,7 @@ public class EnemyController : MonoBehaviour
     private int startHitPoints;
     private Image hitPointsImg;
 
-    private float shotFrequency = 1.0f;
+    private float shotFrequency = 3.0f;
     private float rechargeTime = 0.0f;
 
     private Camera cameraToLookAt;
@@ -57,6 +57,7 @@ public class EnemyController : MonoBehaviour
     public void ChooseNewTarget(Transform newTarget)
     {
         float newDist = Vector3.Distance(transform.position, newTarget.position);
+        
         float currentDist = Vector3.Distance(transform.position, currentTarget.transform.position);
 
         if(newDist < currentDist) 
@@ -69,20 +70,20 @@ public class EnemyController : MonoBehaviour
 
     public void LoseHitPoints(int damage)
     {
-        
         this.hitPoints -= damage;
         hitPointsImg.fillAmount = (float)hitPoints / startHitPoints;
         if (hitPoints <= 0) 
-        { 
+        {
+            EnemiesWavesManager.enemiesWave.RemoveEnemyInWave(this);
             Destroy(gameObject);
         }
     }
 
     private void OnTriggerStay(Collider other)
     {
+        // Shot a dark sphere.
         if (other.gameObject.tag == "Light")
         {
-            Debug.Log("Shot a dark sphere.");
             if (currentTarget == null)
             {
                 currentTarget = other.gameObject;
@@ -119,7 +120,7 @@ public class EnemyController : MonoBehaviour
 
     private void ShotDarkSphere()
     {
-        Debug.Log("A Dark Sphere is instatiated.");
+        // A Dark Sphere is instatiated.
         GameObject shotObj = Instantiate(darkSphere, startSpawnShot.transform, false);
 
         DarkShot darkShot = shotObj.GetComponent<DarkShot>();

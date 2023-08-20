@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class TaleManager : MonoBehaviour
 {
@@ -48,5 +49,10 @@ public class TaleManager : MonoBehaviour
         yield return new WaitForSeconds(5);
         storyPanel.SetActive(false);
         faceCameraObj.SetActive(false);
+    }
+
+    public void RestartGame()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

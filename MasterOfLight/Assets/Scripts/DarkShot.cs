@@ -17,11 +17,11 @@ public class DarkShot : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log("A Dark Sphere is destroyed.");
+        // A Dark Sphere is destroyed."
         transform.position += shootDir * speed * Time.deltaTime;
-        if(transform.position.y < 0) 
+        if(transform.position.y < 0 || transform.position.y > 120f) 
         {
-            Debug.Log("A Dark Sphere is destroyed.");
+            // A Dark Sphere is destroyed.
             Destroy(gameObject);
         }
     }
@@ -31,7 +31,16 @@ public class DarkShot : MonoBehaviour
         if (other.gameObject.tag == "Light" && other is SphereCollider)
         {
             StreetLamp streetLamp = other.gameObject.GetComponentInParent<StreetLamp>();
-            streetLamp.LoseHitPoints(damage);
+            if(streetLamp != null) 
+            {
+                streetLamp.LoseHitPoints(damage);
+            }
+            POI poi = other.gameObject.GetComponentInParent<POI>();
+            if (poi != null)
+            {
+                poi.LoseHitPoints(damage);
+            }
+
             Destroy(this.gameObject);
         }
     }
