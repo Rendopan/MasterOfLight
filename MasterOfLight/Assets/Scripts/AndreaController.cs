@@ -116,12 +116,27 @@ public class AndreaController : MonoBehaviour
         }
     }
 
-    public void GetLantern(Lantern lanternObj)
+    public void GetLight(int lightPoint)
+    {
+        if (HasLantern)
+        {
+            lantern.AddLightScore(lightPoint);
+        }
+    }
+
+    public void GetLantern(Lantern newLantern)
     {
         //lanternObj.gameObject.SetActive(false);
-        lantern = lanternObj;
+        lantern = newLantern;
         HasLantern = true;
     }
+
+    //public void GetLantern(int lanternIdx)
+    //{
+    //    //lanternObj.gameObject.SetActive(false);
+    //    lantern = lanternObj;
+    //    HasLantern = true;
+    //}
 
     public void Generate_StreetLamp(int idLamp)
     {
@@ -187,14 +202,4 @@ public class AndreaController : MonoBehaviour
             canvasPlacement.SetActive(isPlacing);
         }
     }
-
-    //private void OnTriggerEnter(Collider other)
-    //{
-    //    if (other.gameObject.CompareTag("Flame"))
-    //    {
-    //        Debug.Log("Ciao, fiamma.");
-    //        //AndreaController.Andrea.GetLight(this.gameObject);
-    //    }
-    //    Debug.Log("Ciao, fiamma.");
-    //}
 }

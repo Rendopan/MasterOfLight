@@ -30,7 +30,7 @@ public class EnemyController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        hitPoints = 10;
+        hitPoints = 100;
         damage = 5;
         rechargeTime = shotFrequency;
         startHitPoints = hitPoints;
@@ -74,6 +74,7 @@ public class EnemyController : MonoBehaviour
         hitPointsImg.fillAmount = (float)hitPoints / startHitPoints;
         if (hitPoints <= 0) 
         {
+            AndreaController.Andrea.GetLight(startHitPoints/2);
             EnemiesWavesManager.enemiesWave.RemoveEnemyInWave(this);
             Destroy(gameObject);
         }

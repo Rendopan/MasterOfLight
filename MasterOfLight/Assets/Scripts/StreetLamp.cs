@@ -28,7 +28,7 @@ public class StreetLamp : MonoBehaviour
     void Start()
     {
         startHitPoints = hitPoints = 100;
-        damage = 1;
+        damage = 10;
         cameraToLookAt = Camera.main;
         hitPointsImg = hitPointsBar.GetComponent<Image>();
     }

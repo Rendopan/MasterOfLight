@@ -81,8 +81,9 @@ public class POI : MonoBehaviour
         {
             if (TaleManager.Tale.CurrentStroke == 0)
             {
-                TaleManager.Tale.SetStroke("I cannot remember but I was here before…");
-                TaleManager.Tale.CurrentStroke++;
+                TaleManager.Tale.AdvanceThoughts();
+                //TaleManager.Tale.SetStroke("I cannot remember but I was here before…");
+                //TaleManager.Tale.CurrentStroke++;
             }
         }
     }

@@ -26,7 +26,7 @@ public class Lantern : MonoBehaviour
     //private int currentLight;
     private int maxLight = 100;
 
-    private float flashTime = 7.0f;
+    private float flashTime = 2.0f;
     private float decreaseTime = 3.0f;
     private float currentTime = 0.0f;
 
@@ -93,11 +93,12 @@ public class Lantern : MonoBehaviour
                 pointLight.intensity -= Time.deltaTime;
                 if (pointLight.intensity <= 0.0f)
                 {
-                    if (TaleManager.Tale.CurrentStroke == 1)
-                    {
-                        TaleManager.Tale.SetStroke("Is there a lantern over that well?");
-                        TaleManager.Tale.CurrentStroke++;
-                    }
+                    //if (TaleManager.Tale.CurrentStroke > 0 && TaleManager.Tale.CurrentStroke < 3)
+                    //{
+                    //    //TaleManager.Tale.SetStroke("Is there a lantern over that well?");
+                    //    //TaleManager.Tale.CurrentStroke++;
+                    //    TaleManager.Tale.AdvanceThoughts();
+                    //}
                     inOn = true;
                 }
             }
@@ -114,21 +115,36 @@ public class Lantern : MonoBehaviour
             {
                 if (hit.transform != null)
                 {
-                    lanternUI.SetActive(true);
-                    AndreaController.Andrea.GetLantern(this);
-                    this.gameObject.transform.parent = lanternParentTransform;
-                    this.gameObject.transform.localPosition = Vector3.zero;
-                    if (TaleManager.Tale.CurrentStroke == 2)
-                    {
-                        spotLight.intensity = 2f;
-                        TaleManager.Tale.SetStroke("So cute.");
-                        TaleManager.Tale.CurrentStroke++;
-                    }
-                    //Object.Destroy(this.gameObject);
+                    TakeLantern();
+                    //lanternUI.SetActive(true);
+                    //AndreaController.Andrea.GetLantern(this);
+                    //this.gameObject.transform.parent = lanternParentTransform;
+                    //this.gameObject.transform.localPosition = Vector3.zero;
+                    //if (TaleManager.Tale.CurrentStroke == 2)
+                    //{
+                    //    spotLight.intensity = 2f;
+                    //    TaleManager.Tale.SetStroke("So cute.");
+                    //    TaleManager.Tale.CurrentStroke++;
+                    //}
                 }
             }
         }
     }
+
+    public void TakeLantern()
+    {
+        lanternUI.SetActive(true);
+        AndreaController.Andrea.GetLantern(this);
+        this.gameObject.transform.parent = lanternParentTransform;
+        this.gameObject.transform.localPosition = Vector3.zero;
+        //if (TaleManager.Tale.CurrentStroke == 2)
+        //{
+        //    spotLight.intensity = 2f;
+        //    TaleManager.Tale.SetStroke("So cute.");
+        //    //TaleManager.Tale.CurrentStroke++;
+        //}
+    }
+
 
     /// <summary>
     /// Add light to the lantern.
@@ -153,13 +169,16 @@ public class Lantern : MonoBehaviour
 
         if (currentLightScore == 100)
         {
-            TaleManager.Tale.SetStroke("It's full.");
+            //TaleManager.Tale.SetStroke("It's full.");
+            TaleManager.Tale.AdvanceThoughts(17);
         }
 
-        if (TaleManager.Tale.CurrentStroke == 3)
+        if (TaleManager.Tale.CurrentStroke == 14)
         {
-            TaleManager.Tale.SetStroke("Is the lantern filling up?");
             TaleManager.Tale.CurrentStroke++;
+            TaleManager.Tale.AdvanceThoughts();
+            //TaleManager.Tale.SetStroke("Is the lantern filling up?");
+            //TaleManager.Tale.CurrentStroke++;
         }
     }
 
